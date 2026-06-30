@@ -1,5 +1,20 @@
 <?php
 // GitHub repo: https://github.com/keani-julian/cs85-module3b-createform
+
+// PHP submission handling logic
+$submitted = false;
+$full_name = $email = $topic = $message = '';
+
+// Detect a POST submission from this form
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
+    $submitted = true;
+
+    // Read the user input from the $_POST superglobal
+    $full_name = $_POST['full_name'];
+    $email = $_POST['email'];
+    $topic = $_POST['topic'];
+    $message = $_POST['message'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,6 +25,11 @@
 </head>
 <body>
     <h1>Product Contact Form</h1>
+
+<?php if ($submitted): ?>
+    <p>Thank you, <?= $full_name ?>! We received your message about: "<?= $topic ?>"</p>
+    <p>We'll get back to you at <?= $email ?>.</p>
+<?php endif; ?>
 
     <!-- Self-processing form: action="" posts back to this same file -->
     <form action="" method="POST">
